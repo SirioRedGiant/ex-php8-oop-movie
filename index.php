@@ -10,9 +10,28 @@ class Genre
     }
 }
 
+trait Discountable
+{
+    public $basePrice = 14.99;
+
+
+    public function getDiscountedTicketPrice($age)
+    {
+        if ($age >= 70) {
+            return $this->basePrice * 0.8;
+        }
+        if ($age <= 16) {
+            return $this->basePrice * 0.7;
+        } else {
+            return $this->basePrice;
+        }
+    }
+}
+
 
 class Movie
 {
+    use Discountable;
 
     public string $title;
     public string $author;
@@ -55,7 +74,14 @@ $movie1 = new Movie("Inception", "Christopher Nolan", 2010, [$action, $thriller,
 $movie2 = new Movie("Pulp Fiction", "Quentin Tarantino", 1994, [$action, $thriller]);
 $movie3 = new Movie("Ace Ventura: Pet Detective", "Jack Bernstein", 1994, [$comedy]);
 
+$prezzoScontatoAnziani = $movie1->getDiscountedTicketPrice(70);
+$prezzoScontatoGiovani = $movie1->getDiscountedTicketPrice(16);
+$prezzoBase = $movie1->getDiscountedTicketPrice(30);
+
 
 echo $movie1->getFullMovieDetails() . "<br>";
 echo $movie2->getFullMovieDetails() . "<br>";
 echo $movie3->getFullMovieDetails() . "<br>";
+echo "Prezzo per gli anziani(over 70) = " . number_format($prezzoScontatoAnziani, 2) . "$" . "<br>";
+echo "Prezzo per i giovani(under 16) = " . number_format($prezzoScontatoGiovani, 2) . "$" . "<br>";
+echo "Prezzo standard = " . number_format($prezzoBase, 2) . "$" . "<br>";
