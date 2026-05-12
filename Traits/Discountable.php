@@ -1,7 +1,7 @@
 <?php
 trait Discountable
 {
-    public float $basePrice = 14.99;
+    protected float $basePrice = 14.99;
 
 
     public function getDiscountedTicketPrice($age): float
@@ -12,6 +12,17 @@ trait Discountable
         if ($age <= 16) {
             return $this->basePrice * 0.7;
         }
+        return $this->basePrice;
+    }
+
+    public function setBasePrice(float $_price): void
+    {
+        if ($_price > 0) {
+            $this->basePrice = $_price;
+        }
+    }
+    public function getBasePrice(): float
+    {
         return $this->basePrice;
     }
 }

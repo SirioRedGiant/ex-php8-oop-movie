@@ -25,7 +25,8 @@ require_once "./db.php";
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        h2 {
+        h2,
+        h3 {
             margin-top: 0;
             color: #333;
         }
@@ -38,22 +39,27 @@ require_once "./db.php";
             color: #2e7d32;
             font-weight: bold;
         }
+
+        .info {
+            background-color: #85a8ff;
+        }
     </style>
 </head>
 
 <body>
 
     <h1>🎬 Cinema PHP - Catalogo</h1>
-
+    <div class="info">
+        <h2><?php echo Movie::getTotalMovies();  ?></h2>
+    </div>
     <?php foreach ($movieList as $movie) { ?>
         <div class="card">
-            <h2><?php echo $movie->title; ?> (<?php echo $movie->year; ?>)</h2>
-            <p>Regia: <strong><?php echo $movie->author; ?></strong></p>
+            <h3><?php echo $movie->getTitle(); ?> (<?php echo $movie->getYear(); ?>)</h3>
+            <p>Regia: <strong><?php echo $movie->getAuthor(); ?></strong></p>
             <p>Generi: <em><?php echo $movie->getMovieGenresList(); ?></em></p>
             <p>Valutazione: <?php echo $movie->getStarsHtmlRender(); ?></p>
-
             <div class="price-info">
-                <span class="price-tag">Prezzo base: <?php echo number_format($movie->basePrice, 2); ?>$</span>
+                <span class="price-tag">Prezzo base: <?php echo number_format($movie->getBasePrice(), 2); ?>$</span>
                 <small> | Sconto Anziani: <?php echo number_format($movie->getDiscountedTicketPrice(70), 2); ?>$</small>
                 <small> | Sconto Giovani: <?php echo number_format($movie->getDiscountedTicketPrice(16), 2); ?>$</small>
             </div>
