@@ -6,6 +6,7 @@ class Movie
 
     public static int $movieCount = 0;
 
+    private string $internalCode;
     protected string $title;
     protected string $author;
     protected int $year;
@@ -20,6 +21,7 @@ class Movie
         $this->genres = $_genres;
         $this->basePrice = $_price; // modifica del valore di partenza del prezzo per renderlo dinamico, il metodo del trait rimane
         $this->stars = $_stars;
+        $this->setInternalCode();
 
         //ogni volta che verrà caricato un film il contatore aumenterà
         self::$movieCount++;
@@ -29,6 +31,16 @@ class Movie
     public static function getTotalMovies(): string
     {
         return "Al momento sono stati caricati " . self::$movieCount . " film nel catalogo.";
+    }
+
+    public function getInternalCode(): string
+    {
+        return $this->internalCode;
+    }
+
+    public function setInternalCode(): void
+    {
+        $this->internalCode = "MOV-" . $this->year . "-" . uniqid();
     }
 
     public function getTitle(): string

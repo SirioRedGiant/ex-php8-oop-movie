@@ -23,6 +23,16 @@ require_once "./db.php";
             margin-bottom: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .unique-code {
+            position: absolute;
+            background-color: #b5c15a;
+            top: 20px;
+            right: 20px;
+            margin: 0;
+            color: #666;
         }
 
         h2,
@@ -54,6 +64,7 @@ require_once "./db.php";
     </div>
     <?php foreach ($movieList as $movie) { ?>
         <div class="card">
+            <small class="unique-code">Codice Univoco: <?php echo $movie->getInternalCode(); ?></small>
             <h3><?php echo $movie->getTitle(); ?> (<?php echo $movie->getYear(); ?>)</h3>
             <p>Regia: <strong><?php echo $movie->getAuthor(); ?></strong></p>
             <p>Generi: <em><?php echo $movie->getMovieGenresList(); ?></em></p>
